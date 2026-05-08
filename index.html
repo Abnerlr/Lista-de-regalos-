@@ -135,61 +135,42 @@
       font-size:0.9rem;
     }
 
-    @media(max-width:768px){
+@media(max-width:768px){
 
-
-  th:nth-child(1),
-td:nth-child(1){
-  width:32%;
-}
-
-th:nth-child(2),
-td:nth-child(2){
-  width:20%;
-}
-
-th:nth-child(3),
-td:nth-child(3){
-  width:28%;
-}
-
-th:nth-child(4),
-td:nth-child(4){
-  width:20%;
-}
   .hero h1{
     font-size:2.2rem;
   }
 
   .card{
     padding:15px;
-    overflow:hidden;
+    overflow-x:auto;
   }
 
   table{
-    min-width:100%;
+    min-width:900px;
   }
 
   th,
   td{
-    padding:12px 8px;
-    font-size:0.85rem;
-    white-space:normal;
+    padding:12px 10px;
+    font-size:0.9rem;
+    white-space:nowrap;
   }
 
   input{
+    min-width:180px;
     padding:10px;
-    font-size:0.85rem;
+    font-size:0.9rem;
   }
 
   .category{
-    font-size:0.65rem;
-  padding:4px 6px;
+    font-size:0.72rem;
+    padding:5px 10px;
   }
 
   .status{
-    font-size:0.68rem;
-  padding:5px 8px;
+    font-size:0.72rem;
+    padding:6px 10px;
   }
 
 }
@@ -258,66 +239,92 @@ td:nth-child(4){
 
     const gifts = [
 
-      ["Pinzas","Cocina"],
-      ["Batidores manuales","Cocina"],
-      ["Peladores","Cocina"],
-      ["Ralladores","Cocina"],
-      ["Prensador de ajo","Cocina"],
-      ["Abrelatas","Cocina"],
-      ["Sacacorchos","Cocina"],
+  // Cocina
 
-      ["Rodillo","Repostería"],
-      ["Brochas de cocina","Repostería"],
-      ["Cortadores pizza/galletas","Repostería"],
-      ["Tapetes de silicona","Repostería"],
+  ["Pinzas","Cocina"],
+  ["Batidores manuales","Cocina"],
+  ["Peladores","Cocina"],
+  ["Ralladores","Cocina"],
+  ["Prensador de ajo","Cocina"],
+  ["Abrelatas","Cocina"],
+  ["Sacacorchos","Cocina"],
 
-      ["Tazas medidoras","Medición"],
-      ["Cucharadas medidoras","Medición"],
-      ["Jarras medidoras","Medición"],
+  // Set de repostería
 
-      ["Set de bowls","Cocina"],
-      ["Coladores","Cocina"],
-      ["Embudos","Cocina"],
-      ["Tijeras de cocina","Cocina"],
-      ["Set de cuchillos para queso","Cocina"],
-      ["Set de afilado","Cocina"],
-      ["Tablas de picar","Cocina"],
-      ["Ollas","Cocina"],
-      ["Cacerolas","Cocina"],
-      ["Vaporera","Cocina"],
-      ["Bandejas o moldes","Repostería"],
-      ["Rejillas","Repostería"],
-      ["Plancha","Cocina"],
-      ["Parrilla","Cocina"],
+  ["Rodillo","Set de repostería"],
+  ["Brochas de cocina","Set de repostería"],
+  ["Cortadores (pizza/galletas)","Set de repostería"],
+  ["Tapetes de silicona","Set de repostería"],
 
-      ["Tostadora","Electrodomésticos"],
-      ["Cafetera","Electrodomésticos"],
-      ["Hervidor eléctrico","Electrodomésticos"],
-      ["Sandwichera","Electrodomésticos"],
-      ["Licuadora","Electrodomésticos"],
-      ["Batidora","Electrodomésticos"],
-      ["Procesador de alimentos","Electrodomésticos"],
-      ["Olla arrocera","Electrodomésticos"],
-      ["Olla de cocción lenta","Electrodomésticos"],
+  // Set de medición
 
-      ["Set de vajilla","Comedor"],
-      ["Individuales","Comedor"],
-      ["Guantes de cocina","Cocina"],
-      ["Set de recipientes herméticos","Organización"],
-      ["Set de frascos de vidrio","Organización"],
+  ["Tazas medidoras","Set de medición"],
+  ["Cucharadas medidoras","Set de medición"],
+  ["Jarras medidoras","Set de medición"],
 
-      ["Toallas","Hogar"],
-      ["Huevera","Cocina"],
-      ["Escurridor de platos","Cocina"],
-      ["Sábanas King","Dormitorio"],
-      ["Edredones King","Dormitorio"],
-      ["Limpiones de microfibra","Limpieza"],
-      ["Pañeras","Comedor"],
-      ["Servilletero","Comedor"],
-      ["Prensa francesa","Cocina"],
-      ["Ganchos para ropa","Lavandería"]
+  // Preparación y cocina
 
-    ];
+  ["Set de bowls","Preparación"],
+  ["Coladores","Preparación"],
+  ["Embudos","Preparación"],
+  ["Tijeras de cocina","Preparación"],
+  ["Set de cuchillos para queso","Preparación"],
+  ["Set de afilado","Preparación"],
+  ["Tablas de picar","Preparación"],
+
+  // Ollas y cocción
+
+  ["Ollas","Cocción"],
+  ["Cacerolas","Cocción"],
+  ["Vaporera","Cocción"],
+
+  // Horneado
+
+  ["Bandejas o moldes","Horneado"],
+  ["Rejillas","Horneado"],
+
+  // Cocina exterior
+
+  ["Plancha","Cocina exterior"],
+  ["Parrilla","Cocina exterior"],
+
+  // Electrodomésticos
+
+  ["Tostadora","Electrodomésticos"],
+  ["Cafetera","Electrodomésticos"],
+  ["Hervidor eléctrico","Electrodomésticos"],
+  ["Sandwichera","Electrodomésticos"],
+  ["Licuadora","Electrodomésticos"],
+  ["Batidora","Electrodomésticos"],
+  ["Procesador de alimentos","Electrodomésticos"],
+  ["Olla arrocera","Electrodomésticos"],
+  ["Olla de cocción lenta","Electrodomésticos"],
+
+  // Vajilla
+
+  ["Set de vajilla","Vajilla"],
+  ["Individuales","Vajilla"],
+
+  // Organización
+
+  ["Guantes de cocina","Organización"],
+  ["Set de recipientes herméticos","Organización"],
+  ["Set de frascos de vidrio","Organización"],
+
+  // Hogar
+
+  ["Toallas","Hogar"],
+  ["Huevera","Hogar"],
+  ["Escurridor de platos","Hogar"],
+  ["Sábanas King","Hogar"],
+  ["Edredones King","Hogar"],
+  ["Limpiones de microfibra","Hogar"],
+  ["Pañeras","Hogar"],
+  ["Servilletero","Hogar"],
+  ["Prensa francesa","Hogar"],
+  ["Ganchos para ropa","Hogar"]
+
+];
 
     const table = document.getElementById("giftTable");
 
