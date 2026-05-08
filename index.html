@@ -14,34 +14,6 @@
       padding:0;
       box-sizing:border-box;
     }
-
-    <script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getDatabase,
-  ref,
-  set,
-  onValue
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDL0R2Vi5Na-D-xRff-8RSa766om2FPKbA",
-  authDomain: "lista-de-regalos-de-cocina.firebaseapp.com",
-  databaseURL: "https://lista-de-regalos-de-cocina-default-rtdb.firebaseio.com",
-  projectId: "lista-de-regalos-de-cocina",
-  storageBucket: "lista-de-regalos-de-cocina.firebasestorage.app",
-  messagingSenderId: "8167682777",
-  appId: "1:8167682777:web:64dbc9302b3fc2570084c8",
-  measurementId: "G-1X8V9M6BFZ"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getDatabase(app);
-
-</script>
     
     body{
       font-family:'Poppins',sans-serif;
@@ -180,6 +152,125 @@ const db = getDatabase(app);
 
   </style>
 </head>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  set,
+  onValue
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDL0R2Vi5Na-D-xRff-8RSa766om2FPKbA",
+  authDomain: "lista-de-regalos-de-cocina.firebaseapp.com",
+  databaseURL: "https://lista-de-regalos-de-cocina-default-rtdb.firebaseio.com",
+  projectId: "lista-de-regalos-de-cocina",
+  storageBucket: "lista-de-regalos-de-cocina.firebasestorage.app",
+  messagingSenderId: "8167682777",
+  appId: "1:8167682777:web:64dbc9302b3fc2570084c8",
+  measurementId: "G-1X8V9M6BFZ"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const gifts = [
+
+  ["Pinzas","Cocina"],
+  ["Batidores manuales","Cocina"],
+  ["Peladores","Cocina"],
+  ["Ralladores","Cocina"],
+  ["Prensador de ajo","Cocina"],
+  ["Abrelatas","Cocina"],
+  ["Sacacorchos","Cocina"],
+
+  ["Rodillo","Repostería"],
+  ["Brochas de cocina","Repostería"],
+  ["Cortadores pizza/galletas","Repostería"],
+  ["Tapetes de silicona","Repostería"],
+
+  ["Tazas medidoras","Medición"],
+  ["Cucharadas medidoras","Medición"],
+  ["Jarras medidoras","Medición"]
+
+];
+
+const table = document.getElementById("giftTable");
+
+gifts.forEach((gift, index) => {
+
+  const row = document.createElement("tr");
+
+  row.innerHTML = `
+
+    <td class="gift-name">${gift[0]}</td>
+
+    <td>
+      <span class="category">${gift[1]}</span>
+    </td>
+
+    <td>
+      <input 
+        type="text"
+        id="input-${index}"
+        placeholder="Escribe tu nombre"
+      />
+    </td>
+
+    <td>
+      <span class="status available" id="status-${index}">
+        🟢 Disponible
+      </span>
+    </td>
+  `;
+
+  table.appendChild(row);
+
+  const input = document.getElementById(`input-${index}`);
+
+  input.addEventListener("change", async () => {
+
+    await set(ref(db, 'reservas/' + index), {
+      nombre: input.value
+    });
+
+  });
+
+  onValue(ref(db, 'reservas/' + index), (snapshot) => {
+
+    const data = snapshot.val();
+
+    const status = document.getElementById(`status-${index}`);
+
+    if(data && data.nombre){
+
+      input.value = data.nombre;
+
+      status.classList.remove("available");
+      status.classList.add("reserved");
+
+      status.innerHTML = "🔴 Reservado";
+
+    } else {
+
+      input.value = "";
+
+      status.classList.remove("reserved");
+      status.classList.add("available");
+
+      status.innerHTML = "🟢 Disponible";
+    }
+
+  });
+
+});
+
+</script>
+  
 <body>
 
   <div class="container">
