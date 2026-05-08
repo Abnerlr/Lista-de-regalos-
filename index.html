@@ -57,7 +57,6 @@
     table{
       width:100%;
       border-collapse:collapse;
-      table-layout:fixed;
     }
 
     th{
@@ -149,14 +148,13 @@
 
   table{
     min-width:100%;
-    table-layout:fixed;
   }
 
   th,
   td{
     padding:12px 8px;
     font-size:0.85rem;
-    word-wrap:break-word;
+    white-space:normal;
   }
 
   input{
@@ -318,7 +316,7 @@
           <input
             type="text"
             id="input-${index}"
-            placeholder="Escribe tu nombre"
+            placeholder="Nombre"
           />
         </td>
 
