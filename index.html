@@ -222,6 +222,10 @@
 
   <script type="module">
 
+    window.addEventListener("error", e => {
+  console.log(e);
+});
+
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
     import {
@@ -359,30 +363,38 @@
       const input = document.getElementById(`input-${index}`);
       const status = document.getElementById(`status-${index}`);
 
-      onValue(ref(db, 'reservas/' + index), (snapshot) => {
+onValue(ref(db, 'reservas/' + index), (snapshot) => {
 
-        const data = snapshot.val();
+  const data = snapshot.val();
 
-        if(data && data.nombre){
+  if(data && data.nombre){
 
-          input.value = data.nombre;
+    input.value = data.nombre;
 
-          status.classList.remove("available");
-          status.classList.add("reserved");
+    setTimeout(() => {
+      input.disabled = true;
+    }, 0);
 
-          status.innerHTML = "🔴 Reservado";
+    status.classList.remove("available");
+    status.classList.add("reserved");
 
-        } else {
+    status.innerHTML = `🔴 ${data.nombre}`;
 
-          input.value = "";
+  } else {
 
-          status.classList.remove("reserved");
-          status.classList.add("available");
+    input.value = "";
 
-          status.innerHTML = "🟢 Disponible";
-        }
+    setTimeout(() => {
+      input.disabled = false;
+    }, 0);
 
-      });
+    status.classList.remove("reserved");
+    status.classList.add("available");
+
+    status.innerHTML = "🟢 Disponible";
+  }
+
+});
 
       input.addEventListener("change", async () => {
 
