@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Regalos | Melany & Alejandro</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#f5f5f3;
+      color:#1f1f1f;
+      min-height:100vh;
+      padding:40px 20px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .hero{
+      text-align:center;
+      margin-bottom:40px;
+    }
+
+    .hero h1{
+      font-size:3rem;
+      font-weight:700;
+      margin-bottom:10px;
+      color:#1e1e1e;
+    }
+
+    .hero p{
+      color:#666;
+      font-size:1.1rem;
+    }
+
+    .card{
+      background:white;
+      border-radius:24px;
+      padding:30px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+      overflow:auto;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:900px;
+    }
+
+    th{
+      text-align:left;
+      padding:18px;
+      font-size:0.95rem;
+      color:#777;
+      font-weight:600;
+      border-bottom:1px solid #ececec;
+    }
+
+    td{
+      padding:18px;
+      border-bottom:1px solid #f0f0f0;
+      vertical-align:middle;
+    }
+
+    tr:hover{
+      background:#fafafa;
+    }
+
+    .category{
+      background:#f1f1f1;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:0.8rem;
+      display:inline-block;
+      color:#555;
+      font-weight:500;
+    }
+
+    .gift-name{
+      font-weight:500;
+    }
+
+    input{
+      width:100%;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid #ddd;
+      outline:none;
+      font-family:'Poppins',sans-serif;
+      transition:0.2s;
+    }
+
+    input:focus{
+      border-color:#b89f7a;
+      box-shadow:0 0 0 4px rgba(184,159,122,0.15);
+    }
+
+    .status{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:0.85rem;
+      font-weight:600;
+    }
+
+    .available{
+      background:#eaf8ef;
+      color:#1e8b4d;
+    }
+
+    .reserved{
+      background:#fdecec;
+      color:#c0392b;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:25px;
+      color:#888;
+      font-size:0.9rem;
+    }
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:2.2rem;
+      }
+
+      .card{
+        padding:15px;
+      }
+
+      table{
+        min-width:750px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="hero">
+      <h1>Melany & Alejandro</h1>
+      <p>Lista de regalos de cocina</p>
+    </div>
+
+    <div class="card">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Artículo</th>
+            <th>Categoría</th>
+            <th>Persona</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+
+        <tbody id="giftTable"></tbody>
+
+      </table>
+
+    </div>
+
+    <div class="footer">
+      Gracias por ser parte de este momento especial ❤️
+    </div>
+
+  </div>
+
+  <script>
+
+    const gifts = [
+
+      ["Pinzas","Cocina"],
+      ["Batidores manuales","Cocina"],
+      ["Peladores","Cocina"],
+      ["Ralladores","Cocina"],
+      ["Prensador de ajo","Cocina"],
+      ["Abrelatas","Cocina"],
+      ["Sacacorchos","Cocina"],
+
+      ["Rodillo","Repostería"],
+      ["Brochas de cocina","Repostería"],
+      ["Cortadores pizza/galletas","Repostería"],
+      ["Tapetes de silicona","Repostería"],
+
+      ["Tazas medidoras","Medición"],
+      ["Cucharadas medidoras","Medición"],
+      ["Jarras medidoras","Medición"],
+
+      ["Set de bowls","Cocina"],
+      ["Coladores","Cocina"],
+      ["Embudos","Cocina"],
+      ["Tijeras de cocina","Cocina"],
+      ["Set de cuchillos para queso","Cocina"],
+      ["Set de afilado","Cocina"],
+      ["Tablas de picar","Cocina"],
+      ["Ollas","Cocina"],
+      ["Cacerolas","Cocina"],
+      ["Vaporera","Cocina"],
+      ["Bandejas o moldes","Repostería"],
+      ["Rejillas","Repostería"],
+      ["Plancha","Cocina"],
+      ["Parrilla","Cocina"],
+
+      ["Tostadora","Electrodomésticos"],
+      ["Cafetera","Electrodomésticos"],
+      ["Hervidor eléctrico","Electrodomésticos"],
+      ["Sandwichera","Electrodomésticos"],
+      ["Licuadora","Electrodomésticos"],
+      ["Batidora","Electrodomésticos"],
+      ["Procesador de alimentos","Electrodomésticos"],
+      ["Olla arrocera","Electrodomésticos"],
+      ["Olla de cocción lenta","Electrodomésticos"],
+
+      ["Set de vajilla","Comedor"],
+      ["Individuales","Comedor"],
+      ["Guantes de cocina","Cocina"],
+      ["Set de recipientes herméticos","Organización"],
+      ["Set de frascos de vidrio","Organización"],
+
+      ["Toallas","Hogar"],
+      ["Huevera","Cocina"],
+      ["Escurridor de platos","Cocina"],
+      ["Sábanas King","Dormitorio"],
+      ["Edredones King","Dormitorio"],
+      ["Limpiones de microfibra","Limpieza"],
+      ["Pañeras","Comedor"],
+      ["Servilletero","Comedor"],
+      ["Prensa francesa","Cocina"],
+      ["Ganchos para ropa","Lavandería"]
+
+    ];
+
+    const table = document.getElementById("giftTable");
+
+    gifts.forEach((gift, index) => {
+
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td class="gift-name">${gift[0]}</td>
+
+        <td>
+          <span class="category">${gift[1]}</span>
+        </td>
+
+        <td>
+          <input 
+            type="text" 
+            placeholder="Escribe tu nombre"
+            oninput="updateStatus(this, ${index})"
+          />
+        </td>
+
+        <td>
+          <span class="status available" id="status-${index}">
+            🟢 Disponible
+          </span>
+        </td>
+      `;
+
+      table.appendChild(row);
+
+    });
+
+    function updateStatus(input, index){
+
+      const status = document.getElementById(`status-${index}`);
+
+      if(input.value.trim() !== ""){
+
+        status.classList.remove("available");
+        status.classList.add("reserved");
+
+        status.innerHTML = "🔴 Reservado";
+
+      } else {
+
+        status.classList.remove("reserved");
+        status.classList.add("available");
+
+        status.innerHTML = "🟢 Disponible";
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
