@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lista de Regalos | Melany & Alejandro</title>
+  <title>Lista de Regalos | Melanie & Alejandro</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -371,9 +371,6 @@ onValue(ref(db, 'reservas/' + index), (snapshot) => {
 
     input.value = data.nombre;
 
-    setTimeout(() => {
-      input.disabled = true;
-    }, 0);
 
     status.classList.remove("available");
     status.classList.add("reserved");
@@ -383,10 +380,6 @@ onValue(ref(db, 'reservas/' + index), (snapshot) => {
   } else {
 
     input.value = "";
-
-    setTimeout(() => {
-      input.disabled = false;
-    }, 0);
 
     status.classList.remove("reserved");
     status.classList.add("available");
