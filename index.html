@@ -15,6 +15,34 @@
       box-sizing:border-box;
     }
 
+    <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  set,
+  onValue
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDL0R2Vi5Na-D-xRff-8RSa766om2FPKbA",
+  authDomain: "lista-de-regalos-de-cocina.firebaseapp.com",
+  databaseURL: "https://lista-de-regalos-de-cocina-default-rtdb.firebaseio.com",
+  projectId: "lista-de-regalos-de-cocina",
+  storageBucket: "lista-de-regalos-de-cocina.firebasestorage.app",
+  messagingSenderId: "8167682777",
+  appId: "1:8167682777:web:64dbc9302b3fc2570084c8",
+  measurementId: "G-1X8V9M6BFZ"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+</script>
+    
     body{
       font-family:'Poppins',sans-serif;
       background:#f5f5f3;
