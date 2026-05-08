@@ -1,4 +1,4 @@
- export const firebaseConfig = {
+export const firebaseConfig = {
       apiKey: "AIzaSyDL0R2Vi5Na-D-xRff-8RSa766om2FPKbA",
       authDomain: "lista-de-regalos-de-cocina.firebaseapp.com",
       databaseURL: "https://lista-de-regalos-de-cocina-default-rtdb.firebaseio.com",
