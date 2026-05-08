@@ -9,12 +9,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+
     *{
       margin:0;
       padding:0;
       box-sizing:border-box;
     }
-    
+
     body{
       font-family:'Poppins',sans-serif;
       background:#f5f5f3;
@@ -37,7 +38,7 @@
       font-size:3rem;
       font-weight:700;
       margin-bottom:10px;
-      color:#1e1e1e;
+      color:#1f1f1f;
     }
 
     .hero p{
@@ -78,6 +79,10 @@
       background:#fafafa;
     }
 
+    .gift-name{
+      font-weight:500;
+    }
+
     .category{
       background:#f1f1f1;
       padding:6px 12px;
@@ -85,10 +90,6 @@
       font-size:0.8rem;
       display:inline-block;
       color:#555;
-      font-weight:500;
-    }
-
-    .gift-name{
       font-weight:500;
     }
 
@@ -100,6 +101,7 @@
       outline:none;
       font-family:'Poppins',sans-serif;
       transition:0.2s;
+      font-size:0.95rem;
     }
 
     input:focus{
@@ -151,126 +153,9 @@
     }
 
   </style>
+
 </head>
 
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getDatabase,
-  ref,
-  set,
-  onValue
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDL0R2Vi5Na-D-xRff-8RSa766om2FPKbA",
-  authDomain: "lista-de-regalos-de-cocina.firebaseapp.com",
-  databaseURL: "https://lista-de-regalos-de-cocina-default-rtdb.firebaseio.com",
-  projectId: "lista-de-regalos-de-cocina",
-  storageBucket: "lista-de-regalos-de-cocina.firebasestorage.app",
-  messagingSenderId: "8167682777",
-  appId: "1:8167682777:web:64dbc9302b3fc2570084c8",
-  measurementId: "G-1X8V9M6BFZ"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-const gifts = [
-
-  ["Pinzas","Cocina"],
-  ["Batidores manuales","Cocina"],
-  ["Peladores","Cocina"],
-  ["Ralladores","Cocina"],
-  ["Prensador de ajo","Cocina"],
-  ["Abrelatas","Cocina"],
-  ["Sacacorchos","Cocina"],
-
-  ["Rodillo","Repostería"],
-  ["Brochas de cocina","Repostería"],
-  ["Cortadores pizza/galletas","Repostería"],
-  ["Tapetes de silicona","Repostería"],
-
-  ["Tazas medidoras","Medición"],
-  ["Cucharadas medidoras","Medición"],
-  ["Jarras medidoras","Medición"]
-
-];
-
-const table = document.getElementById("giftTable");
-
-gifts.forEach((gift, index) => {
-
-  const row = document.createElement("tr");
-
-  row.innerHTML = `
-
-    <td class="gift-name">${gift[0]}</td>
-
-    <td>
-      <span class="category">${gift[1]}</span>
-    </td>
-
-    <td>
-      <input 
-        type="text"
-        id="input-${index}"
-        placeholder="Escribe tu nombre"
-      />
-    </td>
-
-    <td>
-      <span class="status available" id="status-${index}">
-        🟢 Disponible
-      </span>
-    </td>
-  `;
-
-  table.appendChild(row);
-
-  const input = document.getElementById(`input-${index}`);
-
-  input.addEventListener("change", async () => {
-
-    await set(ref(db, 'reservas/' + index), {
-      nombre: input.value
-    });
-
-  });
-
-  onValue(ref(db, 'reservas/' + index), (snapshot) => {
-
-    const data = snapshot.val();
-
-    const status = document.getElementById(`status-${index}`);
-
-    if(data && data.nombre){
-
-      input.value = data.nombre;
-
-      status.classList.remove("available");
-      status.classList.add("reserved");
-
-      status.innerHTML = "🔴 Reservado";
-
-    } else {
-
-      input.value = "";
-
-      status.classList.remove("reserved");
-      status.classList.add("available");
-
-      status.innerHTML = "🟢 Disponible";
-    }
-
-  });
-
-});
-
-</script>
-  
 <body>
 
   <div class="container">
@@ -304,7 +189,30 @@ gifts.forEach((gift, index) => {
 
   </div>
 
-  <script>
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import {
+      getDatabase,
+      ref,
+      set,
+      onValue
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDL0R2Vi5Na-D-xRff-8RSa766om2FPKbA",
+      authDomain: "lista-de-regalos-de-cocina.firebaseapp.com",
+      databaseURL: "https://lista-de-regalos-de-cocina-default-rtdb.firebaseio.com",
+      projectId: "lista-de-regalos-de-cocina",
+      storageBucket: "lista-de-regalos-de-cocina.firebasestorage.app",
+      messagingSenderId: "8167682777",
+      appId: "1:8167682777:web:64dbc9302b3fc2570084c8",
+      measurementId: "G-1X8V9M6BFZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
     const gifts = [
 
@@ -383,10 +291,10 @@ gifts.forEach((gift, index) => {
         </td>
 
         <td>
-          <input 
-            type="text" 
+          <input
+            type="text"
+            id="input-${index}"
             placeholder="Escribe tu nombre"
-            oninput="updateStatus(this, ${index})"
           />
         </td>
 
@@ -399,28 +307,43 @@ gifts.forEach((gift, index) => {
 
       table.appendChild(row);
 
-    });
-
-    function updateStatus(input, index){
-
+      const input = document.getElementById(`input-${index}`);
       const status = document.getElementById(`status-${index}`);
 
-      if(input.value.trim() !== ""){
+      onValue(ref(db, 'reservas/' + index), (snapshot) => {
 
-        status.classList.remove("available");
-        status.classList.add("reserved");
+        const data = snapshot.val();
 
-        status.innerHTML = "🔴 Reservado";
+        if(data && data.nombre){
 
-      } else {
+          input.value = data.nombre;
 
-        status.classList.remove("reserved");
-        status.classList.add("available");
+          status.classList.remove("available");
+          status.classList.add("reserved");
 
-        status.innerHTML = "🟢 Disponible";
-      }
+          status.innerHTML = "🔴 Reservado";
 
-    }
+        } else {
+
+          input.value = "";
+
+          status.classList.remove("reserved");
+          status.classList.add("available");
+
+          status.innerHTML = "🟢 Disponible";
+        }
+
+      });
+
+      input.addEventListener("change", async () => {
+
+        await set(ref(db, 'reservas/' + index), {
+          nombre: input.value
+        });
+
+      });
+
+    });
 
   </script>
 
